@@ -1,0 +1,53 @@
+services:
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    pull_policy: if_not_present
+    restart: unless-stopped
+    ports:
+      - "9411:9411"
+
+  otelcol:
+    image: otel/opentelemetry-collector:latest
+    container_name: otelcol
+    volumes:
+      - ./otelcollector/otel-collector.yaml:/etc/otel/config.yaml
+    command: [ "--config=/etc/otel/config.yaml" ]
+    ports:
+      - 4317:4317
+      - 55679:55679
+
+  zipcode_service:
+    container_name: zipcode_service
+    build:
+      context: ../../internal
+      dockerfile: ./services/zipcodeservice/Dockerfile
+      args:
+        project: ./cmd/app
+        app_env: development
+    environment:
+      - APP_NAME=zipcode-microservice
+    ports:
+      - 8081:8081
+    restart: on-failure
+    depends_on:
+      - zipkin
+      - otelcol
+
+  weather_service:
+    container_name: weather_service
+    build:
+      context: ../../internal
+      dockerfile: ./services/weatherservice/Dockerfile
+      args:
+        project: ./cmd/app
+        app_env: development
+    environment:
+      - APP_NAME=weather-microservice
+    ports:
+      - 8082:8082
+    restart: on-failure
+    depends_on:
+      - zipkin
+      - otelcol

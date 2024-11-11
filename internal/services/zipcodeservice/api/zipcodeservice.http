@@ -1,0 +1,8 @@
+###
+
+POST http://localhost:8081/api/v1/zipcode/validate HTTP/1.1
+content-type: application/json
+
+{
+    "cep": "37275000"
+}

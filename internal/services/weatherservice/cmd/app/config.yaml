@@ -1,0 +1,23 @@
+Http:
+  Name: "weather-microservice"
+  Host: "localhost"
+  Port: ":8082"
+
+WeatherApi:
+  Url: ""
+
+ZipCodeExternalApi:
+  Url: "https://viacep.com.br/ws/%s/json"
+
+WeatherExternalApi:
+  Key: "f441282b4612475b890134223242910"  
+  Url: "https://api.weatherapi.com/v1/current.json?%s&key=%s"
+
+Tracing:
+  ServiceName: "weather-service"
+  Version: "1.0.0"
+  InstrumentationName: "io.opentelemetry.traces.weather-service"
+  Id: 2
+  AlwaysOnSampler: true
+  ZipkinExporterOptions:
+    Url: "http://zipkin:9411/api/v2/spans"

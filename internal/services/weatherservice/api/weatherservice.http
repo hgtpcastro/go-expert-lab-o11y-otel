@@ -1,0 +1,19 @@
+###
+
+GET http://localhost:8082/api/v1/weather/85501000 HTTP/1.1
+Host: localhost
+
+###
+
+GET http://localhost:8082/api/v1/weather/37190001 HTTP/1.1
+Host: localhost
+
+###
+
+GET http://localhost:8082/api/v1/weather/37275000 HTTP/1.1
+Host: localhost
+
+###
+
+GET http://localhost:8082/api/v1/weather/000000000 HTTP/1.1
+Host: localhost

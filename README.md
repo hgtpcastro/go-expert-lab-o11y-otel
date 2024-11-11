@@ -1,31 +1,48 @@
 # go-expert-lab-o11y-otel
 Pós Go Expert Lab Otel
 
-## Configuração
-```
-- Renomeie o arquivo .env.example para .env
-- Substitua WEATHER_API_KEY pela sua chave da WeatherAPI 
+### Buildar a imagem docker e inicar os serviços
+```bash
+    make docker-compose-all-up
 ```
 
-### Rodar os testes
+### Parar os serviços
 ```bash
-    make test
+    make docker-compose-all-down
 ```
 
-### Buildar a imagem docker e inicar a aplicação
+### Acessar o Zipkin:
 ```bash
-    make start
+    http://localhost:9411
 ```
 
-### Parar a aplicação
+### Testar
+
+## 1 - Navegue até a pasta api no diretório zipcodeservice:
 ```bash
-    make stop
+    cd ./internal/services/zipcodeservice/api/
 ```
 
-### Remover o container
+## 2 - Execute o arquivo .http (VSCode: REST Client Plugin):
 ```bash
-    make clean
+    zipcodeservice.http
 ```
+
+### Exemplo
+
+## Requisição com CEP válido
+
+```bash
+    curl -X POST "http://localhost:8081/api/v1/zipcode/validate" \
+    -H 'Content-Type: application/json' \
+    -d '{ "cep": "37275000"}'    
+```    
+
+## Resposta
+```bash
+    {"city":"Cristais","temp_C":19.9,"temp_F":67.82,"temp_K":293.05}
+```    
+
 
 ## <a name="license"></a> License
 

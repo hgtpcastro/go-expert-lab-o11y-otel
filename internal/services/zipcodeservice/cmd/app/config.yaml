@@ -1,0 +1,16 @@
+Http:
+  Name: "zipcode-microservice"
+  Host: "localhost"
+  Port: ":8081"
+
+WeatherApi:
+  Url: "http://weather_service:8082/api/v1/weather/%s"  
+
+Tracing:
+  ServiceName: "zipcode-service"
+  Version: "1.0.0"
+  InstrumentationName: "io.opentelemetry.traces.zipcode-service"
+  Id: 1
+  AlwaysOnSampler: true
+  ZipkinExporterOptions:
+    Url: "http://zipkin:9411/api/v2/spans"    
